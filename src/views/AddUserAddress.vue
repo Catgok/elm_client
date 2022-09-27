@@ -11,8 +11,7 @@
           联系人：
         </div>
         <div class="content">
-          <input type="text" v-model="deliveryAddress.contactName" placeholder="联系人
-姓名">
+          <input type="text" v-model="deliveryAddress.contactName" placeholder="联系人姓名">
         </div>
       </li>
       <li>
@@ -75,15 +74,15 @@ export default {
   },
   methods: {
     addUserAddress() {
-      if (this.deliveryAddress.contactName == '') {
+      if (this.deliveryAddress.contactName === '') {
         alert('联系人姓名不能为空！');
         return;
       }
-      if (this.deliveryAddress.contactTel == '') {
+      if (this.deliveryAddress.contactTel === '') {
         alert('联系人电话不能为空！');
         return;
       }
-      if (this.deliveryAddress.address == '') {
+      if (this.deliveryAddress.address === '') {
         alert('联系人地址不能为空！');
         return;
       }

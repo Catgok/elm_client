@@ -29,7 +29,7 @@
           <div>
             <i class="fa fa-minus-circle" @click="minus(index)" vshow="item.quantity!=0"></i>
           </div>
-          <p><span v-show="item.quantity!=0">{{ item.quantity }}</span></p>
+          <p><span v-show="item.quantity!==0">{{ item.quantity }}</span></p>
           <div>
             <i class="fa fa-plus-circle" @click="add(index)"></i>
           </div>
@@ -39,9 +39,9 @@
     <!-- 购物车部分 -->
     <div class="cart">
       <div class="cart-left">
-        <div class="cart-left-icon" :style="totalQuantity==0?'backgroundcolor:#505051;':'background-color:#3190E8;'">
+        <div class="cart-left-icon" :style="totalQuantity===0?'backgroundcolor:#505051;':'background-color:#3190E8;'">
           <i class="fa fa-shopping-cart"></i>
-          <div class="cart-left-icon-quantity" v-show="totalQuantity!=0">
+          <div class="cart-left-icon-quantity" v-show="totalQuantity!==0">
             {{ totalQuantity }}
           </div>
         </div>
@@ -84,7 +84,7 @@ export default {
     }).catch(error => {
       console.error(error);
     });
-//根据businessId查询所属食品信息
+    //根据businessId查询所属食品信息
     this.$axios.post('FoodController/listFoodByBusinessId', this.$qs.stringify({
       businessId: this.businessId
     })).then(response => {
@@ -92,7 +92,7 @@ export default {
       for (let i = 0; i < this.foodArr.length; i++) {
         this.foodArr[i].quantity = 0;
       }
-//如果已登录，那么需要去查询购物车中是否已经选购了某个食品
+      //如果已登录，那么需要去查询购物车中是否已经选购了某个食品
       if (this.user != null) {
         this.listCart();
       }
@@ -107,11 +107,11 @@ export default {
         userId: this.user.userId
       })).then(response => {
         let cartArr = response.data;
-//遍历所有食品列表
+        //遍历所有食品列表
         for (let foodItem of this.foodArr) {
           foodItem.quantity = 0;
           for (let cartItem of cartArr) {
-            if (cartItem.foodId == foodItem.foodId) {
+            if (cartItem.foodId === foodItem.foodId) {
               foodItem.quantity = cartItem.quantity;
             }
           }
@@ -122,34 +122,34 @@ export default {
       });
     },
     add(index) {
-//首先做登录验证
-      if (this.user == null) {
+      //首先做登录验证
+      if (this.user===null) {
         this.$router.push({
           path: '/login'
         });
         return;
       }
-      if (this.foodArr[index].quantity == 0) {
-//做insert
+      if (this.foodArr[index].quantity === 0) {
+        //做insert
         this.savaCart(index);
       } else {
-//做update
+        //做update
         this.updateCart(index, 1);
       }
     },
     minus(index) {
-//首先做登录验证
-      if (this.user == null) {
+      //首先做登录验证
+      if (this.user===null) {
         this.$router.push({
           path: '/login'
         });
         return;
       }
       if (this.foodArr[index].quantity > 1) {
-//做update
+        //做update
         this.updateCart(index, -1);
       } else {
-//做delete
+        //做delete
         this.removeCart(index);
       }
     },
@@ -159,8 +159,8 @@ export default {
         userId: this.user.userId,
         foodId: this.foodArr[index].foodId
       })).then(response => {
-        if (response.data == 1) {
-//此食品数量要更新为1；
+        if (response.data === 1) {
+          //此食品数量要更新为1；
           this.foodArr[index].quantity = 1;
           this.foodArr.sort();
         } else {
@@ -177,7 +177,7 @@ export default {
         foodId: this.foodArr[index].foodId,
         quantity: this.foodArr[index].quantity + num
       })).then(response => {
-        if (response.data == 1) {//此食品数量要更新为1或-1；
+        if (response.data === 1) {//此食品数量要更新为1或-1；
           this.foodArr[index].quantity += num;
           this.foodArr.sort();
         } else {
@@ -193,8 +193,8 @@ export default {
         userId: this.user.userId,
         foodId: this.foodArr[index].foodId
       })).then(response => {
-        if (response.data == 1) {
-//此食品数量要更新为0；视图的减号和数量要消失
+        if (response.data === 1) {
+          //此食品数量要更新为0；视图的减号和数量要消失
           this.foodArr[index].quantity = 0;
           this.foodArr.sort();
         } else {
@@ -214,7 +214,7 @@ export default {
     }
   },
   computed: {
-//食品总价格
+    //食品总价格
     totalPrice() {
       let total = 0;
       for (let item of this.foodArr) {
@@ -222,14 +222,15 @@ export default {
       }
       return total;
     },
-//食品总数量
+    //食品总数量
     totalQuantity() {
       let quantity = 0;
       for (let item of this.foodArr) {
         quantity += item.quantity;
       }
       return quantity;
-    },//结算总价格
+    },
+    //结算总价格
     totalSettle() {
       return this.totalPrice + this.business.deliveryPrice;
     }

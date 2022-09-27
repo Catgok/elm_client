@@ -10,8 +10,7 @@
         <div class="title">
           手机号码：
         </div>
-        <div class="content"><input type="text" @blur="checkUserId" v-model="user.userId" placeholder="手
-机号码">
+        <div class="content"><input type="text" @blur="checkUserId" v-model="user.userId" placeholder="手机号码">
         </div>
       </li>
       <li>
@@ -78,7 +77,7 @@ export default {
       this.$axios.post('UserController/getUserById', this.$qs.stringify({
         userId: this.user.userId,
       })).then(response => {
-        if (response.data == 1) {
+        if (response.data === 1) {
           this.user.userId = '';
           alert('此手机号码已存在！')
         }
@@ -87,23 +86,23 @@ export default {
       });
     },
     register() {
-      if (this.user.userId == '') {
+      if (this.user.userId === '') {
         alert('手机号码不能为空！');
         return;
       }
-      if (this.user.password == '') {
+      if (this.user.password === '') {
         alert('密码不能为空！');
         return;
       }
-      if (this.user.password != this.confirmPassword) {
+      if (this.user.password !== this.confirmPassword) {
         alert('两次输入的密码不一致！');
         return;
       }
-      if (this.user.userName == '') {
+      if (this.user.userName === '') {
         alert('用户名不能为空！');
         return;
       }
-//注册请求
+      //注册请求
       this.$axios.post('UserController/saveUser', this.$qs.stringify(
           this.user
       )).then(response => {

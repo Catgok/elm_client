@@ -14,7 +14,7 @@
       <p>&#165;{{ orders.orderTotal }}</p>
     </div>
     <!-- 订单明细部分 -->
-    <ul class="order-detailet" v-show="isShowDetailet">
+    <ul v-show="isShowDetailet" class="order-detailet">
       <li v-for="item in orders.list">
         <p>{{ item.food.foodName }} x {{ item.quantity }}</p>
         <p>&#165;{{ item.food.foodPrice * item.quantity }}</p>
@@ -65,10 +65,10 @@ export default {
     });
   },
   mounted() {
-//这里的代码是实现：一旦路由到在线支付组件，就不能回到订单确认组件。
-//先将当前url添加到history对象中
+    //这里的代码是实现：一旦路由到在线支付组件，就不能回到订单确认组件。
+    //先将当前url添加到history对象中
     history.pushState(null, null, document.URL);
-//popstate事件能够监听history对象的变化
+    //popstate事件能够监听history对象的变化
     window.onpopstate = () => {
       this.$router.push({path: '/index'});
     }

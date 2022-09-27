@@ -1,11 +1,5 @@
-// import Vue from 'vue'
-// import {createApp} from 'vue'
-// import App from '../App.vue'
-// import VueRouter from '../router'
-// // import VueRouter from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
-import Vue from 'vue'
-import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
 import BusinessList from '../views/BusinessList.vue'
 import BusinessInfo from '../views/BusinessInfo.vue'
@@ -18,9 +12,6 @@ import AddUserAddress from '../views/AddUserAddress.vue'
 import EditUserAddress from '../views/EditUserAddress.vue'
 import Register from '../views/Register.vue'
 
-
-Vue.use(VueRouter)
-// createApp(App).use(VueRouter).mount('#app')
 const routes = [
     {
         path: '/',
@@ -72,14 +63,15 @@ const routes = [
         component: Register
     }
 ]
-//解决重复路由报异常问题
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err)
-}
-const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
+// 解决重复路由报异常问题
+// const originalPush = VueRouter.prototype.push;
+//
+// VueRouter.prototype.push = function push(location) {
+//     return originalPush.call(this, location).catch(err => err)
+// }
+
+const router = createRouter({
+    history: createWebHistory(process.env.BASE_URL),
     routes
 })
 export default router

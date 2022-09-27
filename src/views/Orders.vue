@@ -54,7 +54,7 @@ export default {
   created() {
     this.user = this.$getSessionStorage('user');
     this.deliveryaddress = this.$getLocalStorage(this.user.userId);
-//查询当前商家
+    //查询当前商家
     this.$axios.post('BusinessController/getBusinessById', this.$qs.stringify({
       businessId: this.businessId
     })).then(response => {
@@ -62,7 +62,7 @@ export default {
     }).catch(error => {
       console.error(error);
     });
-//查询当前用户在购物车中的当前商家食品列表
+    //查询当前用户在购物车中的当前商家食品列表
     this.$axios.post('CartController/listCart', this.$qs.stringify({
       userId: this.user.userId,
       businessId: this.businessId
@@ -84,7 +84,7 @@ export default {
   },
   filters: {
     sexFilter(value) {
-      return value == 1 ? '先生' : '女士';
+      return value === 1 ? '先生' : '女士';
     }
   },
   methods: {
@@ -92,11 +92,11 @@ export default {
       this.$router.push({path: '/userAddress', query: {businessId: this.businessId}});
     },
     toPayment() {
-      if (this.deliveryaddress == null) {
+      if (this.deliveryaddress===null) {
         alert('请选择送货地址！');
         return;
       }
-//创建订单
+      //创建订单
       this.$axios.post('OrdersController/createOrders', this.$qs.stringify({
         userId: this.user.userId,
         businessId: this.businessId,

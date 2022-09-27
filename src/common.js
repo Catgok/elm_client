@@ -1,9 +1,9 @@
 //获取当前时间（XXXX-XX-XX）
 export function getCurDate() {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let day = now.getDate();
     month = month < 10 ? "0" + month : month;
     day = day < 10 ? "0" + day : day;
     return year + "-" + month + "-" + day;
@@ -16,8 +16,8 @@ export function setSessionStorage(keyStr, value) {
 
 //从sessionStorage中获取一个JSON对象（取不到时返回null）
 export function getSessionStorage(keyStr) {
-    var str = sessionStorage.getItem(keyStr);
-    if (str == '' || str == null || str == 'null' || str == undefined) {
+    let str = sessionStorage.getItem(keyStr);
+    if (str === '' || str === null || str === 'null' || str === undefined) {
         return null;
     } else {
         return JSON.parse(str);
@@ -36,8 +36,8 @@ export function setLocalStorage(keyStr, value) {
 
 //从localStorage中获取一个JSON对象（取不到时返回null）
 export function getLocalStorage(keyStr) {
-    var str = localStorage.getItem(keyStr);
-    if (str == '' || str == null || str == 'null' || str == undefined) {
+    let str = localStorage.getItem(keyStr);
+    if (str === '' || str === null || str === 'null' || str === undefined) {
         return null;
     } else {
         return JSON.parse(str);

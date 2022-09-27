@@ -37,12 +37,12 @@ export default {
   },
   created() {
     this.user = this.$getSessionStorage('user');
-//根据orderTypeId查询商家信息
+    //根据orderTypeId查询商家信息
     this.$axios.post('BusinessController/listBusinessByOrderTypeId', this.$qs.stringify({
       orderTypeId: this.orderTypeId
     })).then(response => {
       this.businessArr = response.data;
-//判断是否登录
+      //判断是否登录
       if (this.user != null) {
         this.listCart();
       }
@@ -58,11 +58,11 @@ export default {
         userId: this.user.userId
       })).then(response => {
         let cartArr = response.data;
-//遍历所有食品列表
+        //遍历所有食品列表
         for (let businessItem of this.businessArr) {
           businessItem.quantity = 0;
           for (let cartItem of cartArr) {
-            if (cartItem.businessId == businessItem.businessId) {
+            if (cartItem.businessId === businessItem.businessId) {
               businessItem.quantity += cartItem.quantity;
             }
           }

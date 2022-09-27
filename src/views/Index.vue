@@ -333,15 +333,15 @@ export default {
   name: 'Index',
   mounted() {
     document.onscroll = () => {
-//获取滚动条位置
+      //获取滚动条位置
       let s1 = document.documentElement.scrollTop;
       let s2 = document.body.scrollTop;
-      let scroll = s1 == 0 ? s2 : s1;
-//获取视口宽度
+      let scroll = s1 === 0 ? s2 : s1;
+      //获取视口宽度
       let width = document.documentElement.clientWidth;
-//获取顶部固定块
+      //获取顶部固定块
       let search = this.$refs.fixedBox;
-//判断滚动条超过视口宽度的12%时，搜索块变固定定位
+      //判断滚动条超过视口宽度的12%时，搜索块变固定定位
       if (scroll > width * 0.12) {
         search.style.position = 'fixed';
         search.style.left = '0';
@@ -352,7 +352,7 @@ export default {
     }
   },
   destroyed() {
-//当切换到其他组件时，就不需要document滚动条事件，所以将此事件去掉
+    //当切换到其他组件时，就不需要document滚动条事件，所以将此事件去掉
     document.onscroll = null;
   },
   components: {
@@ -504,10 +504,9 @@ export default {
 .wrapper .supermember {
   /*这里也设置容器宽度95%，不能用padding，因为背景色也会充满padding*/
   width: 95%;
-  margin: 0 auto;
   height: 11.5vw;
   background-color: #FEEDC1;
-  margin-top: 1.3vw;
+  margin: 1.3vw auto 0;
   border-radius: 2px;
   color: #644F1B;
   display: flex;

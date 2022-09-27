@@ -48,12 +48,12 @@ export default {
   },
   filters: {
     sexFilter(value) {
-      return value == 1 ? '先生' : '女士';
+      return value === 1 ? '先生' : '女士';
     }
   },
   methods: {
     listDeliveryAddressByUserId() {
-//查询送货地址
+      //查询送货地址
       this.$axios.post('DeliveryAddressController/listDeliveryAddressByUserId', this.$qs.stringify({
         userId: this.user.userId
       })).then(response => {
@@ -63,7 +63,7 @@ export default {
       });
     },
     setDeliveryAddress(deliveryAddress) {
-//把用户选择的默认送货地址存储到localStorage中
+      //把用户选择的默认送货地址存储到localStorage中
       this.$setLocalStorage(this.user.userId, deliveryAddress);
       this.$router.push({path: '/orders', query: {businessId: this.businessId}});
     },
@@ -85,7 +85,7 @@ export default {
       })).then(response => {
         if (response.data > 0) {
           let deliveryAddress = this.$getLocalStorage(this.user.userId);
-          if (deliveryAddress != null && deliveryAddress.daId == daId) {
+          if (deliveryAddress != null && deliveryAddress.daId === daId) {
             this.$removeLocalStorage(this.user.userId);
           }
           this.listDeliveryAddressByUserId();

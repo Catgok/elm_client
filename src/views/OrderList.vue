@@ -7,7 +7,7 @@
     <!-- 订单列表部分 -->
     <h3>未支付订单信息：</h3>
     <ul class="order">
-      <li v-for="item in orderArr" v-if="item.orderState==0">
+      <li v-for="item in orderArr" v-if="item.orderState===0">
         <div class="order-info">
           <p>
             {{ item.business.businessName }}
@@ -32,7 +32,7 @@
     </ul>
     <h3>已支付订单信息：</h3>
     <ul class="order">
-      <li v-for="item in orderArr" v-if="item.orderState==1">
+      <li v-for="item in orderArr" v-if="item.orderState===1">
         <div class="order-info">
           <p>
             {{ item.business.businessName }}
