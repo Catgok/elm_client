@@ -36,7 +36,7 @@ router.beforeEach(function (to, from, next) {
     if (!(to.path === '/' || to.path === '/index' || to.path === '/businessList' || to.path === '/businessInfo' || to.path === '/login' || to.path === '/register')) {
         if (user === null) {
             router.push('/login');
-            location.reload();
+            // location.reload();
         }
     }
     next();

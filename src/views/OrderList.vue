@@ -7,8 +7,8 @@
     <!-- 订单列表部分 -->
     <h3>未支付订单信息：</h3>
     <ul class="order">
-      <li v-for="item in orderArr" v-if="item.orderState===0">
-        <div class="order-info">
+      <li v-for="item in orderArr">
+        <div v-if="item.orderState===0" class="order-info">
           <p>
             {{ item.business.businessName }}
             <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
@@ -18,7 +18,7 @@
             <div class="order-info-right-icon">去支付</div>
           </div>
         </div>
-        <ul class="order-detailet" v-show="item.isShowDetailet">
+        <ul v-if="item.orderState===0" v-show="item.isShowDetailet" class="order-detailet">
           <li v-for="odItem in item.list">
             <p>{{ odItem.food.foodName }} x {{ odItem.quantity }}</p>
             <p>&#165;{{ odItem.food.foodPrice * odItem.quantity }}</p>
@@ -32,8 +32,8 @@
     </ul>
     <h3>已支付订单信息：</h3>
     <ul class="order">
-      <li v-for="item in orderArr" v-if="item.orderState===1">
-        <div class="order-info">
+      <li v-for="item in orderArr">
+        <div v-if="item.orderState===1" class="order-info">
           <p>
             {{ item.business.businessName }}
             <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
@@ -42,7 +42,7 @@
             <p>&#165;{{ item.orderTotal }}</p>
           </div>
         </div>
-        <ul class="order-detailet" v-show="item.isShowDetailet">
+        <ul v-if="item.orderState===1" v-show="item.isShowDetailet" class="order-detailet">
           <li v-for="odItem in item.list">
             <p>{{ odItem.food.foodName }} x {{ odItem.quantity }}</p>
             <p>&#165;{{ odItem.food.foodPrice * odItem.quantity }}</p>
@@ -79,6 +79,7 @@ export default {
         orders.isShowDetailet = false;
       }
       this.orderArr = result;
+      // this.orderArr.forEach(it => console.log(it))
     }).catch(error => {
       console.error(error);
     });

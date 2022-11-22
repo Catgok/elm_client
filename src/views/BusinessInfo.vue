@@ -27,7 +27,7 @@
         </div>
         <div class="food-right">
           <div>
-            <i class="fa fa-minus-circle" @click="minus(index)" vshow="item.quantity!=0"></i>
+            <i class="fa fa-minus-circle" vshow="item.quantity!=0" @click="minus(index)"></i>
           </div>
           <p><span v-show="item.quantity!==0">{{ item.quantity }}</span></p>
           <div>
@@ -39,9 +39,9 @@
     <!-- 购物车部分 -->
     <div class="cart">
       <div class="cart-left">
-        <div class="cart-left-icon" :style="totalQuantity===0?'backgroundcolor:#505051;':'background-color:#3190E8;'">
+        <div :style="totalQuantity===0?'backgroundcolor:#505051;':'background-color:#3190E8;'" class="cart-left-icon">
           <i class="fa fa-shopping-cart"></i>
-          <div class="cart-left-icon-quantity" v-show="totalQuantity!==0">
+          <div v-show="totalQuantity!==0" class="cart-left-icon-quantity">
             {{ totalQuantity }}
           </div>
         </div>
@@ -52,12 +52,12 @@
       </div>
       <div class="cart-right">
         <!-- 不够起送费 -->
-        <div class="cart-right-item" v-show="totalSettle<business.starPrice"
+        <div v-show="totalSettle<business.starPrice" class="cart-right-item"
              style="background-color: #535356;cursor: default;">
           &#165;{{ business.starPrice }}起送
         </div>
         <!-- 达到起送费 -->
-        <div class="cart-right-item" @click="toOrder" vshow="totalSettle>=business.starPrice">
+        <div class="cart-right-item" vshow="totalSettle>=business.starPrice" @click="toOrder">
           去结算
         </div>
       </div>
@@ -123,7 +123,7 @@ export default {
     },
     add(index) {
       //首先做登录验证
-      if (this.user===null) {
+      if (this.user === null) {
         this.$router.push({
           path: '/login'
         });
@@ -139,7 +139,7 @@ export default {
     },
     minus(index) {
       //首先做登录验证
-      if (this.user===null) {
+      if (this.user === null) {
         this.$router.push({
           path: '/login'
         });

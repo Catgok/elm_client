@@ -8,7 +8,7 @@
       <li v-for="item in businessArr" @click="toBusinessInfo(item.businessId)">
         <div class="business-img">
           <img :src="item.businessImg">
-          <div class="business-img-quantity" v-show="item.quantity>0">
+          <div v-show="item.quantity>0" class="business-img-quantity">
             {{ item.quantity }}
           </div>
         </div>
